@@ -1,16 +1,24 @@
-### Hi there 👋
+from telegram.ext import Updater, CommandHandler
 
-<!--
-**Analizsahambot/analizsahambot** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+# تابعی برای پاسخ به دستور /start
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="سلام! ربات حاضر است.")
 
-Here are some ideas to get you started:
+def main():
+    # ساخت instance از Updater با توکن API ربات تلگرام شما
+    updater = Updater(token='YOUR_TELEGRAM_BOT_TOKEN', use_context=True)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+    # ساخت dispatcher برای ربات
+    dp = updater.dispatcher
+
+    # ثبت دستور /start با تابع start
+    dp.add_handler(CommandHandler("start", start))
+
+    # شروع پیگیری
+    updater.start_polling()
+
+    # فراخوانی عملکرد گره به صورت مداوم
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
